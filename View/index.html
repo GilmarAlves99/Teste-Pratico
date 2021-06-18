@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="css/css.css">
+</head>
+
+<body>
+
+    <p>Login</p>
+
+    <label for="email">Usuário:</label>
+    <input id="email" type="email" placeholder="email@.com" />
+
+    <label for="senha">Senha:</label>
+    <input id="password" type="password" placeholder="senha com 8 digitos" />
+
+    <button data-icon="check" data-iconpos="top" type="button" id="loginButton" class="margem-topo">Login</button>
+
+    <br/>
+    <p id="status"></p>
+    </div>
+    </div>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var url = "http://localhost/testepraticoGilmar/view/logar.php";
+
+        $("#loginButton").click(function() {
+            var email = $.trim($("#email").val());
+            var password = $.trim($("#password").val());
+
+            $("#status").text("Buscando usuário....");
+            var loginString = "email=" + email + "&password=" + password + "&login=";
+            console.log(loginString);
+            $.ajax({
+                type: "POST",
+                crossDomain: true,
+                cache: false,
+                url: url,
+                data: loginString,
+                success: function(data) {
+                    if ($.trim(data) == "success") {
+                        $("#status").text("Logado com Sucesso..!");
+                        localStorage.loginstatus = "true";
+
+                        window.location.href = "pagina.php";
+                    } else if ($.trim(data) == "error") {
+                        $("#status").text("Usuário Incorreto..!");
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+</html>
