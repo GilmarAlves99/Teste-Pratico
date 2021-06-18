@@ -1,8 +1,8 @@
 <?php
 
 require_once '../Controller/UsuarioController.php';
-$email = $_GET['email'];
-$seleciona = UsuarioController::selecionacliente($email);
+$id = $_GET['id'];
+$seleciona = UsuarioController::selecionacliente($id);
 //var_dump($seleciona);
 
 ?>
@@ -21,7 +21,8 @@ $seleciona = UsuarioController::selecionacliente($email);
     <input type="text" name="nome" value="<?=$seleciona->nome;?>" >
     <input type="text" name="dataNascimento" value="<?= $seleciona->dataNascimento;?>" >
    
-    <input type="hidden" name="email" value="<?= $seleciona->email;?>" placeholder="dsds" >
+    <input type="email" name="email" value="<?= $seleciona->email;?>" >
+    <input type="hidden" name="id" value="<?= $seleciona->id;?>"  >
     <input type="submit" name="enviar" value="enviar">
     </form>
 </body>

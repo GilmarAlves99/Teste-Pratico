@@ -3,7 +3,7 @@ require_once '../ConexaoPDO/ConexaoPDO.php';
 class UsuarioModel
 {
 
-// aqui iremos verificar se existe o login
+    // aqui iremos verificar se existe o login
     public function login($email, $senha)
     {
         $conexao = ConexaoPDO::getInstance();
@@ -12,41 +12,82 @@ class UsuarioModel
         $stmt->bindValue("email", $email);
         $stmt->bindValue("senha", $senha);
         $stmt->execute();
-        $dados= $stmt->rowCount();
+        $dados = $stmt->rowCount();
         return $dados;
-      
-      
     }
 
     // aqui iremos lista todos os clientes
-    public function listarclientes ()
+    public function listarclientes()
     {
         $conexao = ConexaoPDO::getInstance();
         $query = "SELECT * FROM clientes ";
         $stmt = $conexao->prepare($query);
-     
+
         $stmt->execute();
-        $dados= $stmt->fetchAll();
+        $dados = $stmt->fetchAll();
         return $dados;
-      
-      
     }
-    /*
-    public function cadastrarUsuario($dados, $novo_nome)
+
+    public function inserirClientes($dados)
 
     {
 
         $conexao = ConexaoPDO::getInstance();
-        $insert = "INSERT usuario (nome,senha,email,celular,dataNascimento,tipousuario,imagem) values (:nome,:senha,:email,:celular,:dataNascimento,:tipousuario,:imagem)";
+        $insert = "INSERT clientes (nome,dataNascimento,email) values (:nome,:dataNascimento,:email)";
         $stmt = $conexao->prepare($insert);
 
         $stmt->bindValue('nome', $dados['nome'], PDO::PARAM_STR);
-        $stmt->bindValue('senha', $dados['senha'], PDO::PARAM_STR);
+        $stmt->bindValue('dataNascimento', $dados['dataNascimento']);
         $stmt->bindValue('email', $dados['email'], PDO::PARAM_STR);
-        $stmt->bindValue('celular', $dados['celular'], PDO::PARAM_STR);
-        $stmt->bindValue('dataNascimento', $dados['dataNascimento'], PDO::PARAM_STR);
-        $stmt->bindValue('tipousuario', $dados['tipousuario'], PDO::PARAM_STR);
-        $stmt->bindValue('imagem', $novo_nome, PDO::PARAM_STR);
+
+
         $stmt->execute();
-    }*/
+        $stmt->rowCount();
+    }
+
+
+    // aqui iremos selecionar o cliente pelo id
+    public function selecionacliente($id)
+    {
+        $conexao = ConexaoPDO::getInstance();
+        $query = "SELECT * FROM clientes where id=:id ";
+        $stmt = $conexao->prepare($query);
+        $stmt->bindValue('id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+        $dados = $stmt->fetchObject();
+        return $dados;
+    }
+
+  // aqui iremos lista todos os clientes
+  public function editarCliente($dados)
+  {
+    $conexao = ConexaoPDO::getInstance();
+  
+    $insert = "UPDATE clientes SET nome=:nome,dataNascimento=:dataNascimento,email=:email WHERE id=:id";
+    $stmt = $conexao->prepare($insert);
+    $stmt->bindValue("nome", $dados['nome'], PDO::PARAM_STR);
+    $stmt->bindValue("dataNascimento", $dados['dataNascimento'], PDO::PARAM_STR);
+    $stmt->bindValue("email", $dados['email'], PDO::PARAM_STR);
+    $stmt->bindValue("id", $dados['id'], PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->rowCount();
+  }
+
+  
+  public function excluirUsuarioEmail($id)
+  {
+      
+      $conexao = ConexaoPDO::getInstance();
+
+      $consulta = "DELETE FROM clientes WHERE id=:id";
+
+      $stmt = $conexao->prepare($consulta);
+      $stmt->bindValue("id", $id, PDO::PARAM_STMT);
+      $stmt->execute();
+
+      // irá retornar quantos registros foram afetados
+      return $stmt->rowCount();
+     
+  }
+
 }

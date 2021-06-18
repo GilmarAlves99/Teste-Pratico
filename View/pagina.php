@@ -53,19 +53,22 @@
                 <td><?=
                     $cliente['nome'];
                     ?></td>
-                <td><?=
+                <td><?php
 
-
-
-                    // pegando a data de nascimento do usuario e mostrando na tela (dia, mes e ano)
-                    $dataNascimento = (new DateTime($cliente['dataNascimento']))->format('d/m/Y');
+                    if ($cliente['dataNascimento'] == "0000-00-00" ){
+                        echo "Sem Data de Nascimento";
+                    } else { // pegando a data de nascimento do usuario e mostrando na tela (dia, mes e ano)
+                        $dataNascimento = (new DateTime($cliente['dataNascimento']))->format('d/m/Y');
+                       
+                        echo $dataNascimento ;
+                    }
 
                     ?></td>
                 <td><?=
                     $cliente['email'];
                     ?></td>
-                <td><a href="editarCliente.php?email=<?= $cliente['email']; ?>"><img src="edite.png" style="width: 40px;height:40px"></a></td>
-                <td><a href="apagarCliente.php?email=<?= $cliente['email']; ?>"><img src="lixeira.png" style="width: 40px;height:40px"></a></td>
+                <td><a href="editarCliente.php?id=<?= $cliente['id']; ?>"><img src="edite.png" style="width: 40px;height:40px"></a></td>
+                <td><a href="apagarCliente.php?id=<?= $cliente['id']; ?>"><img src="lixeira.png" style="width: 40px;height:40px"></a></td>
             </tr>
         <?php
         }
