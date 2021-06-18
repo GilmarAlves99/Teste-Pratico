@@ -3,18 +3,7 @@ require_once '../ConexaoPDO/ConexaoPDO.php';
 class UsuarioModel
 {
 
-    // aqui iremos verificar se existe o login
-    public function login($email, $senha)
-    {
-        $conexao = ConexaoPDO::getInstance();
-        $query = "SELECT * FROM adm WHERE email =:email AND senha =:senha ";
-        $stmt = $conexao->prepare($query);
-        $stmt->bindValue("email", $email);
-        $stmt->bindValue("senha", $senha);
-        $stmt->execute();
-        $dados = $stmt->rowCount();
-        return $dados;
-    }
+  
 
     // aqui iremos lista todos os clientes
     public function listarclientes()
