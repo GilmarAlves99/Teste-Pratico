@@ -51,7 +51,7 @@
                     if ($.trim(data) == "success") {
                         $("#status").text("Logado com Sucesso..!");
                         localStorage.loginstatus = "true";
-
+                        // verificar se esta chegando aqui     alert('oi');
                         window.location.href = "pagina.php";
                     } else if ($.trim(data) == "error") {
                         $("#status").text("Usuário Incorreto..!");

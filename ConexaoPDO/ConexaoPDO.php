@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 define('CONECTOR', 'mysql');
 define('HOST', 'localhost');
 define('PORT', '3306');

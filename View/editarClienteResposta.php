@@ -1,5 +1,8 @@
 <?php
 
+require "verifica.php";
+
+
 require_once '../Controller/UsuarioController.php';
 
    $editar=UsuarioController::editarcliente($_POST);

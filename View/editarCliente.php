@@ -1,5 +1,10 @@
 <?php
 
+require "verifica.php";
+
+
+
+
 require_once '../Controller/UsuarioController.php';
 $id = $_GET['id'];
 $seleciona = UsuarioController::selecionacliente($id);

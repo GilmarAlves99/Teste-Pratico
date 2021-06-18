@@ -1,3 +1,9 @@
+<?php
+
+require "verifica.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +16,7 @@
 
 <body>
     <H2> Cadastrar cliente</H2>
-
+<a href="sair.php" style="position:relative;text-align: right;">SAIR</a>
     <hr>
     <?php
     require_once '../Controller/UsuarioController.php';
