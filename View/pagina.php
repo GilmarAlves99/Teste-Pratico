@@ -23,14 +23,18 @@ require "verifica.php";
     <?php
     require_once '../Controller/UsuarioController.php';
     if (isset($_POST["btn"])) {
+        // limpando os espaços nas informações enviadas
+       $email=  trim($_POST['email']);
+        $nome=  trim($_POST['nome']);
 // ira verificar se os campos estão com caracteres 'vazios'
-// se caso nao estiver
-        if (empty($_POST['email']) != "" || empty($_POST['nome'])) {
-            // ira inserir o clinte no banco
-            $inserir = UsuarioController::inserirclientes($_POST);
+//verifica se o campo é vazio.
+        if (empty($email) || empty($nome)) {
+             // se caso estiver vazio
+             echo "CAMPOS NOME E E-MAIL SÃO OBRIGATÓRIOS";
+          
         } else {
-        // se caso estiver vazio
-            echo "CAMPOS NOME E E-MAIL SÃO OBRIGATÓRIOS";
+         // se nao ira inserir o clinte no banco
+         $inserir = UsuarioController::inserirclientes($_POST);
         }
     }
 
