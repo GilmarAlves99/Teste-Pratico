@@ -15,28 +15,34 @@ require "verifica.php";
 </head>
 
 <body>
-    <H2> Cadastrar cliente</H2>
+ 
 <a href="sair.php" style="position:relative;text-align: right;">SAIR</a>
+
+<H2> Cadastrar cliente</H2>
     <hr>
     <?php
     require_once '../Controller/UsuarioController.php';
-    if (isset($_POST['nome'])) {
-        if ($_POST['email'] != "") {
+    if (isset($_POST["btn"])) {
+// ira verificar se os campos estão com caracteres 'vazios'
+// se caso nao estiver
+        if (empty($_POST['email']) != "" || empty($_POST['nome'])) {
+            // ira inserir o clinte no banco
             $inserir = UsuarioController::inserirclientes($_POST);
         } else {
-            echo "Email Obrigatorio";
+        // se caso estiver vazio
+            echo "CAMPOS NOME E E-MAIL SÃO OBRIGATÓRIOS";
         }
     }
 
     ?>
     <form action="" method="POST">
         <label for="">Nome</label>
-        <input name="nome" type="text">
+        <input name="nome" type="text" required>
         <label for="">Data Nascimento</label>
         <input type="date" name="dataNascimento">
         <label for="">E-mail</label>
-        <input type="text" name="email">
-        <input type="submit" value="cadastrar">
+        <input type="text" name="email" required>
+        <button type="submit" name="btn" >cadastrar</button>
     </form>
     <H2> Lista de clientes</H2>
     <table style="width:100%;text-align:center;background-color:lightsteelblue">
@@ -50,17 +56,17 @@ require "verifica.php";
 
 
         <?php
-
+//iremos pegar a function no controller
         $listaCliente = UsuarioController::listarclientes();
-
+ // iremos fazer a listagens dos clientes cadastrados
         foreach ($listaCliente as $cliente) {
         ?>
             <tr>
-                <td><?=
+                <td><?= // irforma o nome do cliente
                     $cliente['nome'];
                     ?></td>
                 <td><?php
-
+// se a data de nascimento nao for cadastrada irei informar na pagina
                     if ($cliente['dataNascimento'] == "0000-00-00" ){
                         echo "Sem Data de Nascimento";
                     } else { // pegando a data de nascimento do usuario e mostrando na tela (dia, mes e ano)
@@ -71,6 +77,7 @@ require "verifica.php";
 
                     ?></td>
                 <td><?=
+                // irforma o email do cliente
                     $cliente['email'];
                     ?></td>
                 <td><a href="editarCliente.php?id=<?= $cliente['id']; ?>"><img src="edite.png" style="width: 40px;height:40px"></a></td>
